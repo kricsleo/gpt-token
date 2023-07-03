@@ -6,13 +6,13 @@ export interface Message {
   content: string
 }
 
-export function calcTextTokens(text: string, model: TiktokenModel) {
+export function textTokens(text: string, model: TiktokenModel) {
   const encoder = encodingForModel(model)
   return encoder.encode(text).length
 }
 
 // https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb
-export function calcMessageTokens(message: Message | Message[], model: TiktokenModel) {
+export function messageTokens(message: Message | Message[], model: TiktokenModel) {
   let tokensPerMessage: number
   let tokensPerName: number
   const primeTokens = 3
@@ -35,10 +35,10 @@ export function calcMessageTokens(message: Message | Message[], model: TiktokenM
     tokensPerName = 1
   } else if(model.includes('gpt-3.5-turbo')) {
     console.warn('Warning: gpt-3.5-turbo may update over time. Returning num tokens assuming gpt-3.5-turbo-0613.')
-    return calcMessageTokens(message, 'gpt-3.5-turbo')
+    return messageTokens(message, 'gpt-3.5-turbo')
   } else if(model.includes('gpt-4')) {
     console.warn('Warning: gpt-4 may update over time. Returning num tokens assuming gpt-4-0613.')
-    return calcMessageTokens(message, 'gpt-4-0613')
+    return messageTokens(message, 'gpt-4-0613')
   } else {
     throw new Error(`Unsupported model: ${model}`)
   }

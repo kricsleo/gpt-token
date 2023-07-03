@@ -18,7 +18,7 @@
 
 </p>
 
-Calculate the number of text tokens in GPT.
+<h3 align="center">Calculate the number of text tokens in GPT.</h3>
 
 ## Usage
 
@@ -27,12 +27,13 @@ npm i gpt-token
 ```
 
 ```ts
-import { calcTextTokens, calcMessageTokens } from 'gpt-token'
+import { textTokens, messageTokens } from 'gpt-token'
 
-// => 
-console.log(calcTextTokens('A quick brown fox jumps over the lazy dog'))
+// => 9
+console.log(textTokens('A quick brown fox jumps over the lazy dog'))
 
-console.log(calcMessageTokens([
+// => 16
+console.log(messageTokens([
   {
     role: 'user',
     content: 'A quick brown fox jumps over the lazy dog'
@@ -42,8 +43,9 @@ console.log(calcMessageTokens([
 
 ## Thanks ❤️
 
-- [gpt-tokens](https://github.com/Cainier/gpt-tokens/tree/main)
-- [openai-cookbook](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb)
+- [gpt-tokens](https://github.com/Cainier/gpt-tokens/tree/main) - inspired by this project
+- [openai-cookbook](https://github.com/openai/openai-cookbook/blob/main/examples/How_to_count_tokens_with_tiktoken.ipynb) - official tokenizer rules
+- [openai-tokenizer](https://platform.openai.com/tokenizer) - official tokenizer playground
 
 ## License
 
