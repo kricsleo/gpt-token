@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "packageManager": "pnpm@8.6.5",
-  "description": "",
+  "description": "Calculate the number of text tokens in GPT.",
   "author": "kricsleo <kricsleo@163.com>",
   "license": "MIT",
   "homepage": "https://github.com/kricsleo/gpt-token#readme",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/kricsleo/gpt-token.git"
   },
   "bugs": "https://github.com/kricsleo/gpt-token/issues",
-  "keywords": [],
+  "keywords": ["chatgpt", "gpt", "tokens", "calculate"],
   "sideEffects": false,
   "exports": {
     ".": {
