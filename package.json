@@ -53,5 +53,11 @@
     "typescript": "^5.1.6",
     "unbuild": "^1.2.1",
     "vitest": "^0.32.2"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "js-tiktoken": "^1.0.7"
   }
 }
