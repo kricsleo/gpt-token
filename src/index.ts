@@ -6,8 +6,6 @@ export interface Message {
   content: string
 }
 
-export { TiktokenModel } from 'js-tiktoken'
-
 export function textTokens(text: string, model: TiktokenModel) {
   const encoder = encodingForModel(model)
   return encoder.encode(text).length
