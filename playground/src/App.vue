@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { textTokens } from 'gpt-token'
+import { textTokens } from '../../src/index'
 
 const text = 'A quick brown fox jumps over the lazy dog'
 const model = 'gpt-3.5-turbo-0301'
