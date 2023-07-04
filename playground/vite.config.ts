@@ -10,7 +10,11 @@ export default defineConfig({
     },
   },
   plugins: [
-    Vue(),
+    Vue({
+      script: {
+        defineModel: true
+      }
+    }),
     // https://github.com/antfu/unocss => unocss.config.ts
     Unocss(),
   ],
