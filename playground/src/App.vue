@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { TiktokenModel } from '../../src/index'
 import OptionsGroup from './components/OptionsGroup.vue';
 import { computedAsync, useLocalStorage } from '@vueuse/core'
@@ -17,7 +17,7 @@ const colors = ['#fb7185dd', '#60a5fadd', '#22c55edd', '#f59e0bdd', '#a855f7dd']
 const worker = new ComlinkWorker<typeof import('./worker')>(new URL('./worker', import.meta.url))
 
 const text = useLocalStorage('text', '<script setup lang="ts">')
-const model = useLocalStorage('model', models[0].value)
+const model = useLocalStorage<TiktokenModel>('model', models[0].value)
 const decodedTexts = computedAsync(() => worker.textToTokenText(text.value, model.value), [])
 const textLength = computed(() => text.value.length.toLocaleString('en'))
 const textTokenLength = computed(() => decodedTexts.value.length.toLocaleString('en'))
