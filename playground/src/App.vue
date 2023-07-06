@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue';
 import { TiktokenModel } from '../../src/index'
 import OptionsGroup from './components/OptionsGroup.vue';
-import { computedAsync } from '@vueuse/core'
+import { computedAsync, useLocalStorage } from '@vueuse/core'
 
 const models: Array<{label: string, value: TiktokenModel }> = [
   { label: 'gpt-3.5-turbo-0301', value: 'gpt-3.5-turbo-0301' },
@@ -16,8 +16,8 @@ const models: Array<{label: string, value: TiktokenModel }> = [
 const colors = ['#fb7185dd', '#60a5fadd', '#22c55edd', '#f59e0bdd', '#a855f7dd']
 const worker = new ComlinkWorker<typeof import('./worker')>(new URL('./worker', import.meta.url))
 
-const text = ref('<script setup lang="ts">')
-const model = ref(models[0].value)
+const text = useLocalStorage('text', '<script setup lang="ts">')
+const model = useLocalStorage('model', models[0].value)
 const decodedTexts = computedAsync(() => worker.textToTokenText(text.value, model.value), [])
 const textLength = computed(() => text.value.length.toLocaleString('en'))
 const textTokenLength = computed(() => decodedTexts.value.length.toLocaleString('en'))
