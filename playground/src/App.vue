@@ -13,7 +13,7 @@ const models: Array<{label: string, value: TiktokenModel }> = [
   { label: 'gpt-4-0613', value: 'gpt-4-0613' },
   { label: 'gpt-4-32k-0613', value: 'gpt-4-32k-0613' },
 ]
-const colors = ['rgb(39 181 234 / 50%)', 'rgb(52 245 81 / 50%)', 'rgb(254 234 57 / 50%)', 'rgb(252 102 102 / 50%)', 'rgb(236 26 26 / 50%)']
+const colors = ['#fb7185dd', '#60a5fadd', '#22c55edd', '#f59e0bdd', '#a855f7dd']
 const text = ref('<script setup lang="ts">')
 const model = ref(models[0].value)
 watch([text, model], () => {
@@ -30,13 +30,14 @@ const messageTokenLength = computed(() => (messageTokens({role: 'user', content:
 </script>
 
 <template>
-  <main font-sans p="x-4 y-8" text-gray-200>
+  <main font-sans p4 pb20 text-gray-200>
     <div max-w-220 mx-auto flex="~ col gap-4">
       <OptionsGroup :options="models" v-model="model" />
       <textarea 
         placeholder="Text to calculate"
         v-model="text"
-        border="~ base rounded" bg-secondary px4 py2 h-100 outline-none op-85 focus:border-emerald-5 transition-all />
+        border="~ base rounded" bg-secondary px4 py2 h-100 outline-none 
+        op-85 focus:border-emerald-5 transition-all font-mono />
       <p text-center>
         <strong text-xl text-emerald-5>{{ textLength }}</strong> <span op-75>characters</span> 
         <span mx-2 op75>→ </span>
@@ -44,7 +45,7 @@ const messageTokenLength = computed(() => (messageTokens({role: 'user', content:
         <span mx-2 op75>→ </span>
         <strong text-xl text-emerald-5>{{ messageTokenLength }}</strong> <span op-75>message tokens</span>
       </p>
-      <div ws-pre-wrap border="~ base rounded" bg-secondary px4 py2 op-85 h-100 of-auto>
+      <div font-mono ws-pre-wrap border="~ base rounded" bg-secondary px4 py2 op-85 h-100 of-auto>
         <span 
           v-for="decodedText, idx in decodedTexts" 
           :key="idx" 
