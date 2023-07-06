@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { TiktokenModel, encodingForModel } from 'js-tiktoken';
-import { computed, ref, watch } from 'vue';
-import { textTokens, messageTokens } from '../../src/index'
+import { computed, ref } from 'vue';
+import { TiktokenModel } from '../../src/index'
 import OptionsGroup from './components/OptionsGroup.vue';
+import { computedAsync } from '@vueuse/core'
 
 const models: Array<{label: string, value: TiktokenModel }> = [
   { label: 'gpt-3.5-turbo-0301', value: 'gpt-3.5-turbo-0301' },
@@ -14,19 +14,14 @@ const models: Array<{label: string, value: TiktokenModel }> = [
   { label: 'gpt-4-32k-0613', value: 'gpt-4-32k-0613' },
 ]
 const colors = ['#fb7185dd', '#60a5fadd', '#22c55edd', '#f59e0bdd', '#a855f7dd']
+const worker = new ComlinkWorker<typeof import('./worker')>(new URL('./worker', import.meta.url))
+
 const text = ref('<script setup lang="ts">')
 const model = ref(models[0].value)
-watch([text, model], () => {
-  console.log({t : text.value})
-})
+const decodedTexts = computedAsync(() => worker.textToTokenText(text.value, model.value), [])
 const textLength = computed(() => text.value.length.toLocaleString('en'))
-const textTokenLength = computed(() => (textTokens(text.value, model.value)).toLocaleString('en'))
-const decodedTexts = computed(() => {
-  const encoder = encodingForModel(model.value)
-  const tokens = encoder.encode(text.value)
-  return tokens.map(t => encoder.decode([t]))
-})
-const messageTokenLength = computed(() => (messageTokens({role: 'user', content: text.value}, model.value)).toLocaleString('en'))
+const textTokenLength = computed(() => decodedTexts.value.length.toLocaleString('en'))
+const messageTokenLength = computedAsync(async () => (await worker.messageTokens({role: 'user', content: text.value}, model.value)).toLocaleString('en'), '0')
 </script>
 
 <template>

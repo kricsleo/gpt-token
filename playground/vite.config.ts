@@ -2,6 +2,7 @@ import path from 'node:path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Unocss from 'unocss/vite'
+import { comlink } from 'vite-plugin-comlink'
 
 export default defineConfig({
   resolve: {
@@ -15,7 +16,13 @@ export default defineConfig({
         defineModel: true
       }
     }),
+    comlink(),
     // https://github.com/antfu/unocss => unocss.config.ts
     Unocss(),
   ],
+  worker: {
+    plugins: [
+      comlink()
+    ]
+  }
 })
