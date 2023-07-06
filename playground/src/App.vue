@@ -16,7 +16,7 @@ const models: Array<{label: string, value: TiktokenModel }> = [
 const colors = ['#fb7185dd', '#60a5fadd', '#22c55edd', '#f59e0bdd', '#a855f7dd']
 const worker = new ComlinkWorker<typeof import('./worker')>(new URL('./worker', import.meta.url))
 
-const text = useLocalStorage('text', '<script setup lang="ts">')
+const text = useLocalStorage('Text to tokenizer', 'A quick brown fox jumps over the lazy dog')
 const model = useLocalStorage<TiktokenModel>('model', models[0].value)
 const decodedTexts = computedAsync(() => worker.textToTokenText(text.value, model.value), [])
 const textLength = computed(() => text.value.length.toLocaleString('en'))
